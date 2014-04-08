@@ -31,7 +31,7 @@ Traditionally, rendering engines were able to optimize their performance by look
 * Pre-fetch API.
 
 ##The ```<script>``` Element
-The ```<script>``` element relies synchronous callbacks to [prepare](http://www.whatwg.org/specs/web-apps/current-work/multipage/scripting-1.html#prepare-a-script) a script. It will need a few APIs to do its work:
+The ```<script>``` element relies on synchronous callbacks to [prepare](http://www.whatwg.org/specs/web-apps/current-work/multipage/scripting-1.html#prepare-a-script) a script. It will need a few APIs to do its work:
 
 **Bedrock**:
 * [Do a potentially CORS-enabled fetch](http://www.whatwg.org/specs/web-apps/current-work/multipage/fetching-resources.html#potentially-cors-enabled-fetch) of a resource
