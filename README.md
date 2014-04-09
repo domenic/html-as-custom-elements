@@ -8,7 +8,7 @@ It's clear that we're running some sort of code in some special way. Handwaving,
 
 Digging into how each element is built, let's try to keep track of these lower-level APIs. Look for a special **Bedrock** section.
 ##Additional Callbacks
-To implement HTML elements effectively, Custom Elements may need an additional ```childrenChanged``` callback, which is enqueued whenever the list of element's children changes. There could be other callbacks as well.
+To implement HTML elements effectively, Custom Elements may need an additional callbacks, like ```childrenChanged```, which is enqueued whenever the list of element's children changes. We should start with using mutation observers and see how far we get.
 
 ##Callback Barriers
 In the current Custom Elements spec, there's a neat queues-based abstraction that ensures callbacks are invoked consistently and--more importantly--safely. This is accomplished by queueing the callbacks in carefully prescribed order, and then invoking them when we deem it safe.
