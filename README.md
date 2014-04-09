@@ -95,28 +95,39 @@ Based on this exploration, the following bits of flintstone have emerged:
  * Instantiates new documents in response to navigation requests
  * Holds documents in a history
  * Provides a way to create a View
+
 **View**
 * A view is a thing that builds a box tree and turns it into pixels.
  * *TODO*: how to decouple this from DOM?
+
 **HTML Parser**
+
 **Script Runner**
 * Create and execute a script 
+
 **Resource Fetcher**
 * Do a potentially CORS-enabled fetch of a resource
 * Pre-fetch API.
+
 **Event Loop**
 * Some sort of task scheduling/prioritization API
 * Some origin API and Policy to help deciding how/whether to load resources
+
 **CSS Parser**
 * Parse CSS text into a stylesheet
+
 **Style Engine**
 * Add stylesheet to a styleengine
+
 **Media Query Engine**
 * Evaluate media query
+
 **Rendering Surface**
 * Renders pixels and knows how to size itself relative to the dimensions of the element (likely a style engine primitive)
+
 **Video Player**
 * Ships pixels for each frame to the surface primitive
 * Some sort of streaming/buffering info API to inform UI.
+
 **Audio Player**
 
