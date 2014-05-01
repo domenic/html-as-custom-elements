@@ -84,9 +84,8 @@ The Custom Element scaffolding is trivial for these elements.
 * Privileged events to open file picker?
 
 ##Et al.
-The rest of the elements either require no additional behavior or are trivially implementable using Custom Element callbacks.
 
-*TODO*: Keep refining elements and looking for special APIs.
+The detailed work on deconstructing each element is currently tracked in a [spreadsheet](https://docs.google.com/a/google.com/spreadsheet/ccc?key=0AtiYRsLxmdqUdEJlT2Z2XzlaT2FOdkhYVUhNeVpHY3c&usp=sharing#gid=0).
 
 ##Where's Bedrock?
 Based on this exploration, the following bits of flintstone have emerged:
