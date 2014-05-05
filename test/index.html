@@ -1,12 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="https://traceur-compiler.googlecode.com/git/bin/traceur.js"></script>
-  <script src="https://traceur-compiler.googlecode.com/git/src/bootstrap.js"></script>
-  <script type="module" src="../src/html.js"></script>
   <link rel="stylesheet" href="../src/styles/html.css">
 </head>
 <body>
   <p>This is a <custom-div>div</custom-div>.</p>
+
+  <p>This is a <custom-div align="right">custom div aligned to the right</custom-div></p>
+
+  <p>This is a <custom-div id="div-align-toggle">custom div whose align is toggled via script</custom-div>.</p>
+
+  <script type="module">
+    var aligns = ["left", "center", "right"];
+    var i = 1;
+    setInterval(() => {
+      document.querySelector("#div-align-toggle").align = aligns[i];
+      if (++i === aligns.length) {
+          i = 0;
+      }
+    }, 1000);
+  </script>
+
+
+  <script src="https://traceur-compiler.googlecode.com/git/bin/traceur.js"></script>
+  <script src="https://traceur-compiler.googlecode.com/git/src/bootstrap.js"></script>
+  <script type="module" src="../src/html.js"></script>
 </body>
 </html>
