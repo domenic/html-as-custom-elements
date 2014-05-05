@@ -13,3 +13,16 @@ export function getAttr(el, name) {
 export function setAttr(el, name, value) {
   return protoSetAttribute.call(el, name, value);
 };
+
+export function reflectAttr(constructor, attrName, propertyName = attrName) {
+  Object.defineProperty(constructor.prototype, propertyName, {
+    enumerable: true,
+    configurable: true,
+    get() {
+      return getAttr(this, attrName);
+    },
+    set(value) {
+      return setAttr(this, attrName, value);
+    }
+  });
+};
