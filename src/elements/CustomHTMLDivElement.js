@@ -3,7 +3,7 @@
 
 import { getAttr, setAttr } from '../common';
 
-export class CustomHTMLDivElement extends HTMLElement {
+export default class extends HTMLElement {
   get align() {
     return getAttr(this, 'align');
   }
