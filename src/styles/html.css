@@ -21,6 +21,14 @@
  *
  */
 
+/*
+* As of now, this is a pure port from Blink. As such, it contains many
+* nonstandard CSS features. As we port HTML elements to custom elements, we
+* should in each case audit the CSS used to make sure only standard or
+* standards-track CSS is used. Any gaps in CSS's functionality need to be
+* catalogued, just like other gaps in web platform functionality.
+*/
+
 custom-html {
     display: block
 }
