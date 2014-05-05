@@ -1018,19 +1018,19 @@ custom-nobr {
 
 /* states */
 
-:focus { 
+:focus {
     outline: auto 5px -webkit-focus-ring-color
 }
 
 /* Read-only text fields do not show a focus ring but do still receive focus */
-custom-html:focus, custom-body:focus, custom-input[readonly]:focus { 
+custom-html:focus, custom-body:focus, custom-input[readonly]:focus {
     outline: none
 }
 
 custom-applet:focus, custom-embed:focus, custom-iframe:focus, custom-object:focus {
     outline: none
 }
-  
+
 custom-input:focus, custom-textarea:focus, custom-keygen:focus, custom-select:focus {
     outline-offset: -2px
 }
@@ -1047,7 +1047,7 @@ custom-input[type="submit"]:focus,
 custom-input[type="file"]:focus::-webkit-file-upload-button {
     outline-offset: 0
 }
-    
+
 custom-a:-webkit-any-link {
     color: -webkit-link;
     text-decoration: underline;
