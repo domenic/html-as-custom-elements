@@ -33,4 +33,14 @@ describe('div', function() {
       expect(textAlign).to.equal('justify');
     });
   });
+
+  describe('UA stylesheet', function() {
+
+    it('display should be block', function() {
+      var display = window.getComputedStyle(div).getPropertyValue('display');
+      expect(display).to.equal('block');
+    });
+
+  });
+
 });
