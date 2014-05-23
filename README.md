@@ -130,3 +130,8 @@ Based on this exploration, the following bits of flintstone have emerged:
 
 **Audio Player**
 
+## Installing and running tests
+
+    npm install
+    npm test
+    // or `npm run watch` to keep karma running in the background

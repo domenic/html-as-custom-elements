@@ -1,0 +1,41 @@
+{
+  "name": "html-as-custom-elements",
+  "version": "0.0.1",
+  "description": "HTML as custom elements",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "karma start --single-run",
+    "watch": "karma start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dglazkov/html-as-custom-elements"
+  },
+  "keywords": [
+    "HTML",
+    "custom",
+    "elements",
+    "web",
+    "components"
+  ],
+  "author": "ShadowDOM task force",
+  "license": "Apache",
+  "bugs": {
+    "url": "https://github.com/dglazkov/html-as-custom-elements/issues"
+  },
+  "homepage": "https://github.com/dglazkov/html-as-custom-elements",
+  "devDependencies": {
+    "chai": "*",
+    "karma": "*",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.1.4",
+    "karma-cli": "*",
+    "karma-mocha": "*",
+    "karma-requirejs": "^0.2.1",
+    "karma-traceur-preprocessor": "^0.2.2",
+    "mocha": "*",
+    "requirejs": "^2.1.11"
+  }
+}
