@@ -19,7 +19,7 @@ export function reflectAttr(constructor, attrName, propertyName = attrName) {
     enumerable: true,
     configurable: true,
     get() {
-      return getAttr(this, attrName);
+      return getAttr(this, attrName) || '';
     },
     set(value) {
       return setAttr(this, attrName, value);

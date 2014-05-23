@@ -1,1 +1,2 @@
+import './blockquote';
 import './div';
