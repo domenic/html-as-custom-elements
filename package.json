@@ -28,6 +28,7 @@
   "homepage": "https://github.com/dglazkov/html-as-custom-elements",
   "devDependencies": {
     "chai": "*",
+    "traceur": "0.0.42",
     "karma": "*",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^0.1.4",

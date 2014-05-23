@@ -22,8 +22,9 @@
   </script>
 
 
-  <script src="https://traceur-compiler.googlecode.com/git/bin/traceur.js"></script>
-  <script src="https://traceur-compiler.googlecode.com/git/src/bootstrap.js"></script>
-  <script type="module" src="../src/html.js"></script>
+  <script src="../node_modules/traceur/bin/traceur.js"></script>
+  <script>
+  System.import('../src/html');
+  </script>
 </body>
 </html>
