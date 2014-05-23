@@ -2,29 +2,24 @@
 <html>
 <head>
   <link rel="stylesheet" href="../src/styles/html.css">
+  <link rel="stylesheet" href="../node_modules/mocha/mocha.css">
 </head>
 <body>
-  <p>This is a <custom-div>div</custom-div>.</p>
-
-  <p>This is a <custom-div align="right">custom div aligned to the right</custom-div></p>
-
-  <p>This is a <custom-div id="div-align-toggle">custom div whose align is toggled via script</custom-div>.</p>
-
-  <script type="module">
-    var aligns = ["left", "center", "right"];
-    var i = 1;
-    setInterval(() => {
-      document.querySelector("#div-align-toggle").align = aligns[i];
-      if (++i === aligns.length) {
-          i = 0;
-      }
-    }, 1000);
-  </script>
-
-
+  <div id="mocha"></div>
   <script src="../node_modules/traceur/bin/traceur.js"></script>
+  <script src="../node_modules/mocha/mocha.js"></script>
+  <script src="../node_modules/chai/chai.js"></script>
   <script>
-  System.import('../src/html');
+
+  window.expect = chai.expect;
+  mocha.setup({ui: 'bdd'});
+
+  System.import('./all').then(function() {
+    mocha.run();
+  }).catch(function(exception) {
+    console.error(exception);
+  });
+
   </script>
 </body>
 </html>
