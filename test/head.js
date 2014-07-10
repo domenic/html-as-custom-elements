@@ -1,3 +1,5 @@
+import '../src/html';
+
 describe('head', () => {
   var head = null;
 
