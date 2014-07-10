@@ -1,46 +1,40 @@
-import '../src/html';
-
-describe('div', function() {
+describe('div', () => {
   var div = null;
 
-  beforeEach(function() {
+  beforeEach(() => {
     div = document.createElement('custom-div');
     document.body.appendChild(div);
   });
 
-  afterEach(function() {
+  afterEach(() => {
     document.body.removeChild(div);
   });
 
-  // http://www.whatwg.org/specs/web-apps/current-work/multipage/rendering.html#flow-content-1
-  describe('align', function() {
-
-    it('left', function() {
+  // http://www.whatwg.org/specs/web-apps/current-work/multipage/rendering.html#flow-content-3
+  describe('[align]', () => {
+    it('should work when set to left', () => {
       div.setAttribute('align', 'left');
       var textAlign = window.getComputedStyle(div).getPropertyValue('text-align');
       expect(textAlign).to.equal('left');
     });
 
-    it('right', function() {
+    it('should work when set to right', () => {
       div.setAttribute('align', 'right');
       var textAlign = window.getComputedStyle(div).getPropertyValue('text-align');
       expect(textAlign).to.equal('right');
     });
 
-    it('justify', function() {
+    it('should work when set to justify', () => {
       div.setAttribute('align', 'justify');
       var textAlign = window.getComputedStyle(div).getPropertyValue('text-align');
       expect(textAlign).to.equal('justify');
     });
   });
 
-  describe('UA stylesheet', function() {
-
-    it('display should be block', function() {
+  describe('UA stylesheet', () => {
+    it('should have `display: block`', () => {
       var display = window.getComputedStyle(div).getPropertyValue('display');
       expect(display).to.equal('block');
     });
-
   });
-
 });
