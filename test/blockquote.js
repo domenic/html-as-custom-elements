@@ -1,3 +1,5 @@
+import '../src/html';
+
 describe('blockquote', () => {
   var blockquote = null;
 

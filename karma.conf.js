@@ -6,14 +6,15 @@ module.exports = function(config) {
     frameworks: ['traceur', 'requirejs', 'mocha', 'chai'],
 
     files: [
-      'test/index.js',
+      'test/_runner.js',
+      'src/styles/html.css',
       {pattern: 'src/**/*.js', included: false},
       {pattern: 'test/**/*.js', included: false}
     ],
 
     preprocessors: {
       'src/**/*.js': ['traceur'],
-      'test/**/!(index).js': ['traceur']
+      'test/**/!(_runner).js': ['traceur']
     },
 
     reporters: ['progress'],

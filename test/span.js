@@ -1,3 +1,5 @@
+import '../src/html';
+
 describe('span', () => {
   var span = null;
 

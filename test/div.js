@@ -1,3 +1,5 @@
+import '../src/html';
+
 describe('div', () => {
   var div = null;
 
