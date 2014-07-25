@@ -5,7 +5,7 @@ This project aims to re-build [the elements of HTML](http://www.whatwg.org/specs
 - Find missing platform APIs necessary to do the same things native HTML elements are able to do, thus producing a better [layering](http://infrequently.org/2012/11/layers-of-confusion/) story
 - Validate the design of custom elements with regard to how they explain the platform as a [bedrock](http://infrequently.org/2012/04/bedrock/) API
 
-For now, this project is largely exploratory in nature. But eventually, its code may serve as the basis for something that can be incorporated into rendering engines. (The project is led by members of the Blink team, and the Servo team has also expressed interest as well.)
+For now, this project is largely exploratory in nature. But eventually, its code may serve as the basis for something that can be incorporated into rendering engines. (The project is led by members of the Blink team, and the Servo team has also expressed interest.)
 
 ## Layering the Platform
 
