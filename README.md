@@ -1,137 +1,48 @@
-#HTML as Custom Elements
-tl;dr: [Custom Elements](http://w3c.github.io/webcomponents/spec/custom/) is a [bedrock](http://infrequently.org/2012/04/bedrock/) API. We should be able to build all [HTML elements](http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#semantics) with it.
-##Runtime Environment
-It's clear that we're running some sort of code in some special way. Handwaving, we suppose that we have a runtime environment that possesses the following qualities:
+# HTML as Custom Elements
 
-1. There is a strong security boundary between user agent code and author code (writing UA code in C++ is today's solution)
-2. There is a set of lower-level APIs the user agent code needs to implement HTML elements
+This project aims to re-build [the elements of HTML](http://www.whatwg.org/specs/web-apps/current-work/multipage/indices.html#elements-3) as [custom elements](http://w3c.github.io/webcomponents/spec/custom/). This accomplishes two goals:
 
-Digging into how each element is built, let's try to keep track of these lower-level APIs. Look for a special **Bedrock** section.
-##Additional Callbacks
-To implement HTML elements effectively, Custom Elements may need an additional callbacks, like ```childrenChanged```, which is enqueued whenever the list of element's children changes. We should start with using mutation observers and see how far we get.
+- Find missing platform APIs necessary to do the same things native HTML elements are able to do, thus producing a better [layering](http://infrequently.org/2012/11/layers-of-confusion/) story
+- Validate the design of custom elements with regard to how they explain the platform as a [bedrock](http://infrequently.org/2012/04/bedrock/) API
 
-##Callback Barriers
-In the current Custom Elements spec, there's a neat queues-based abstraction that ensures callbacks are invoked consistently and--more importantly--safely. This is accomplished by queueing the callbacks in carefully prescribed order, and then invoking them when we deem it safe.
+For now, this project is largely exploratory in nature. But eventually, its code may serve as the basis for something that can be incorporated into rendering engines. (The project is led by members of the Blink team, and the Servo team has also expressed interest as well.)
 
-If you squint and look at it just so, this abstraction looks like a key part of that security boundary I mentioned earlier: it's only necessary to employ for those custom elements whose callbacks we don't trust to always do right thing.
+## Layering the Platform
 
-This means that we may have to turn this abstraction into an API that the platform can skip for HTML elements (thus making their callbacks truly synchronous) and use for the author-created ones.
+One of the axioms of the extensible web project is that high-level, declarative APIs should be able to be explained in terms of lower-level, imperative APIs. Not just lower-level _algorithms_, but APIs: the capabilities that we encapsulate inside a given HTML element should also be exposed directly to JavaScript authors. And those APIs should be factored into small, composable pieces, that build on each other to eventually produce the declarative edifice that is HTML. In this way, authors can reuse these platform capabilities without jumping through hoops (like instantiating a `HTMLAnchorElement` just to parse a URL) or rebuilding large parts of the platform for themselves (like creating their own scrolling logic just to get pull-to-refresh behavior).
 
-##Who's on First?
-There is a notion of a [browsing context](http://www.whatwg.org/specs/web-apps/current-work/multipage/browsers.html#browsing-context) in the HTML spec. It seems like a good candidate for a bedrock API, which should have some pluggable way to initialize Documents. For HTML Documents, this initialization will involve [registering](http://w3c.github.io/webcomponents/spec/custom/#dfn-element-registration) all HTML elements before instantiating an [HTML Parser](http://www.whatwg.org/specs/web-apps/current-work/multipage/parsing.html#html-parser).
+HTML as Custom Elements envisions rebuilding all of HTML using custom elements—and of course, a custom element can only be as powerful as the JavaScript behind it. So if, while rebuilding a HTML element as a custom element, we find that we cannot accomplish something the native HTML version can do, then _we have found a missing platform API_.
 
-**Bedrock**:
-* Browsing context
-* HTML Parser
+One of the major goals of this project is to find, enumerate, and categorize these absentee APIs. And once we've done so, we can create experimental versions in Chromium behind a flag, build a custom element over here using them to validate that they actually work, and then propose them for standardization.
 
-##What's pre-fetching?
-Traditionally, rendering engines were able to optimize their performance by looking ahead of the parser, picking out elements that fetch resources, and starting to fetch those resources early. Currently, this is something that's just hard-wired, but it seems valuable to have a more flexible way to inform pre-fetching machinery about attribute values of custom elements that represent resource.
+## Explaining the Platform
 
-**Bedrock**:
-* Pre-fetch API.
+Custom elements gives us a lot. Crucially, it gives us a story for how the parser turns tags and attributes in your HTML source into instances that exist in the JavaScript-exposed DOM. It also gives hooks into the [element lifecycle](http://w3c.github.io/webcomponents/spec/custom/#custom-element-lifecycle).
 
-##The ```<script>``` Element
-The ```<script>``` element relies on synchronous callbacks to [prepare](http://www.whatwg.org/specs/web-apps/current-work/multipage/scripting-1.html#prepare-a-script) a script. It will need a few APIs to do its work:
+But native elements have at least one major property that custom elements do not: true encapsulation. This appears in various forms, but in general the story is that the code used to implement a HTML element (much of which currently lives in C++) cannot be interfered with or even observed by user code. For example, today changes to `window.Number` or `Element.prototype.getAttribute` will affect any custom elements coded to use those functions. Similarly, any DOM structures used to represent the "innards" of the element's on-screen representation (such as a `<video>` element's controls, or a `<input type="range">` element's slider) are exposed to the outside world. Shadow DOM provides the shape of a solution, but in its current form is very much a permeable boundary.
 
-**Bedrock**:
-* [Do a potentially CORS-enabled fetch](http://www.whatwg.org/specs/web-apps/current-work/multipage/fetching-resources.html#potentially-cors-enabled-fetch) of a resource
-* [Create and execute a script](http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#create-a-script)
-* Some sort of task scheduling/prioritization API
-* Probably missed something, ```<script>``` is a wrinkly beast.
+One longer-term goal of this project is to come up with solutions for this problem. Roughly, we are thinking about something involving [membranes](http://soft.vub.ac.be/~tvcutsem/invokedynamic/js-membranes), plus additions to shadow DOM.
 
-##The ```<link>``` Element
-The ```<link>``` element is fairly straightforward. The [attributeChanged](http://w3c.github.io/webcomponents/spec/custom/#types-of-callbacks), [enteredView](http://w3c.github.io/webcomponents/spec/custom/#types-of-callbacks), and [leftView](http://w3c.github.io/webcomponents/spec/custom/#types-of-callbacks) provide all the necessary hooks.
+## The Path Ahead
 
-**Bedrock**:
-* Some [origin](http://www.whatwg.org/specs/web-apps/current-work/multipage/origin-0.html#origin) API and  [Policy](https://dvcs.w3.org/hg/content-security-policy/raw-file/tip/csp-specification.dev.html) to help deciding how/whether to load resources
-* [Do a potentially CORS-enabled fetch](http://www.whatwg.org/specs/web-apps/current-work/multipage/fetching-resources.html#potentially-cors-enabled-fetch) of a resource
-* Some sort of task scheduling/prioritization API
-* Parse CSS text into a stylesheet
-* Add stylesheet to the Style engine
-* Evaluate [media query](http://w3c-test.org/csswg/mediaqueries3/)
-* [Create and execute a script](http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#create-a-script) for HTML Imports
+Here's the plan:
 
-##The ```<style>``` Element
-The ```<style>``` element needs the **childrenChanged** callback and uses [attributeChanged](http://w3c.github.io/webcomponents/spec/custom/#types-of-callbacks), [enteredView](http://w3c.github.io/webcomponents/spec/custom/#types-of-callbacks), and [leftView](http://w3c.github.io/webcomponents/spec/custom/#types-of-callbacks) callbacks.
+### Get Up and Running
 
-**Bedrock**:
-* Parse CSS text into a stylesheet
-* Add stylesheet to the style engine
+We need better infrastructure for this project. We need real-browser testing infrastructure on our continuous integration server, and more importantly, we need _tests_. The [w3c/web-platform-tests](https://github.com/w3c/web-platform-tests) project might be a good start, but it is [somewhat anemic in places](https://github.com/w3c/web-platform-tests/tree/13bff083fba249ed260966bca65319b1b35d3f34/html/semantics/forms/the-select-element); we'll need more. And we'll need to do some integration work: the tests are meant for e.g. `<select>`, versus `<custom-select>`. Tricking them (or tricking the browser?) into using `<custom-select>` will be a challenge.
 
-##The ```<img>```, ```<video>```, and ```<audio>``` Elements
-Implementation of these elements is fairly trivial in terms of Custom Elements, but they invoke a few bedrock APIs.
+More than just development infrastructure, we need scaffolding. Existing HTML elements are specified using [WebIDL](http://heycam.github.io/webidl/), a deeply-flawed but ubiquitous way of specifying common conventions like prototype shape and argument type conversion. Just like browsers have a C++ binding layer that generates the outer shell of each method and allows the developers to focus on the actual element logic, we'll want something similar for JavaScript. The Extensible Web Community Group's [webidl2](https://www.npmjs.org/package/webidl2) is likely the tool of choice for this, in one form or another.
 
-**Bedrock**:
-* Some [origin](http://www.whatwg.org/specs/web-apps/current-work/multipage/origin-0.html#origin) API and [Policy](https://dvcs.w3.org/hg/content-security-policy/raw-file/tip/csp-specification.dev.html) to help deciding how/whether to load resources
-* [Do a potentially CORS-enabled fetch](http://www.whatwg.org/specs/web-apps/current-work/multipage/fetching-resources.html#potentially-cors-enabled-fetch) of a resource
-* Some sort of task scheduling/prioritization API
-* A surface primitive, which renders pixels and knows how to size itself relative to the dimensions of the element (likely a style engine primitive)
-* Video engine that ships pixels for each frame to the surface primitive
-* Audio engine
+### Tackle Some Elements
 
-##The ```<iframe>```, ```<object>```, and ```<canvas>``` Elements
-The Custom Element scaffolding is trivial for these elements.
+Although we'll certainly work on a few easy elements (like `<p>` or `<div>`) to get up and running, our priority is not to check every element off a list. Instead, we plan to eventually focus in on one "hard" element to validate the concept and approach. Some good candidates are `<select>` and `<audio>`, which have prior art respectively in [jernoble/Sound](https://github.com/jernoble/Sound) and [ebidel/polymer-experiments](http://ebidel.github.io/polymer-experiments/select-element/).
 
-**Bedrock**:
-* A surface primitive, which renders pixels and knows how to size itself relative to the dimensions of the element (likely a style engine primitive)
-* Some sort of streaming/buffering info API to inform UI.
-* A view into a browsing context primitive for an iframe?
-* Some way to instantiate an NPAPI/PPAPI object and ship pixels from it to the surface primitive
+This will almost certainly uncover missing APIs, which leads us to…
 
-##The ```<input type="file">``` Element
-**Bedrock**:
-* Access to file system
-* Privileged events to open file picker?
+### Prototype Absentee APIs
 
-##Et al.
+Once we've uncovered holes in the layering story, we can start to plug them. The plan is to add an experimental JavaScript API for some missing platform feature to Chromium, and then use it as necessary. We'll probably tackle something easy first, but eventually this process should become a self-sustaining way of prototyping, standardizing, and shipping major missing web platform features.
 
-The detailed work on deconstructing each element is currently tracked in a [spreadsheet](https://docs.google.com/a/google.com/spreadsheet/ccc?key=0AtiYRsLxmdqUdEJlT2Z2XzlaT2FOdkhYVUhNeVpHY3c&usp=sharing#gid=0).
+## Want to Help?
 
-##Where's Bedrock?
-Based on this exploration, the following bits of flintstone have emerged:
-
-**Browsing Context**
- * Instantiates new documents in response to navigation requests
- * Holds documents in a history
- * Provides a way to create a View
-
-**View**
-* A view is a thing that builds a box tree and turns it into pixels.
- * *TODO*: how to decouple this from DOM?
-
-**HTML Parser**
-
-**Script Runner**
-* Create and execute a script 
-
-**Resource Fetcher**
-* Do a potentially CORS-enabled fetch of a resource
-* Pre-fetch API.
-
-**Event Loop**
-* Some sort of task scheduling/prioritization API
-* Some origin API and Policy to help deciding how/whether to load resources
-
-**CSS Parser**
-* Parse CSS text into a stylesheet
-
-**Style Engine**
-* Add stylesheet to a styleengine
-
-**Media Query Engine**
-* Evaluate media query
-
-**Rendering Surface**
-* Renders pixels and knows how to size itself relative to the dimensions of the element (likely a style engine primitive)
-
-**Video Player**
-* Ships pixels for each frame to the surface primitive
-* Some sort of streaming/buffering info API to inform UI.
-
-**Audio Player**
-
-## Installing and running tests
-
-    npm install
-    npm test
-    // or `npm run watch` to keep karma running in the background
+Pop on over to [CONTRIBUTING.md](https://github.com/dglazkov/html-as-custom-elements/blob/master/CONTRIBUTING.md) and join in!
