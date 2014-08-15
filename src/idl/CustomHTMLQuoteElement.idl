@@ -1,0 +1,3 @@
+interface CustomHTMLQuoteElement : HTMLElement {
+  [Reflect] attribute DOMString cite;
+};

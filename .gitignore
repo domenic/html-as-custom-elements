@@ -1,1 +1,4 @@
 node_modules
+
+# generated from src/idl/*
+src/elements/*

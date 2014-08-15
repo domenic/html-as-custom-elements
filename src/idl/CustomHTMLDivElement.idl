@@ -1,0 +1,3 @@
+interface CustomHTMLDivElement : HTMLElement {
+  [Reflect] attribute DOMString align;
+};
