@@ -1,4 +1,5 @@
 import '../src/html';
+var expect = require('chai').expect;
 
 describe('head', () => {
   var head = null;

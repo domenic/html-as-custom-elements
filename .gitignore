@@ -1,4 +1,7 @@
 node_modules
 
+# generated during test runs
+browserified.js
+
 # generated from src/idl/*
 src/elements/*

@@ -6,8 +6,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "karma start --single-run",
-    "watch": "karma start",
+    "test": "testem ci",
+    "watch": "testem",
     "prepublish": "node scripts/traceur-runner.js scripts/generate-from-idl.js"
   },
   "repository": {
@@ -23,27 +23,19 @@
   ],
   "author": "ShadowDOM task force",
   "license": "Apache",
-  "bugs": {
-    "url": "https://github.com/dglazkov/html-as-custom-elements/issues"
-  },
-  "homepage": "https://github.com/dglazkov/html-as-custom-elements",
   "devDependencies": {
-    "chai": "*",
-    "karma": "*",
-    "karma-chai": "^0.1.0",
-    "karma-chrome-launcher": "^0.1.4",
-    "karma-cli": "*",
-    "karma-mocha": "*",
-    "karma-requirejs": "^0.2.1",
-    "karma-traceur-preprocessor": "^0.2.2",
+    "browserify": "^5.10.1",
+    "chai": "^1.9.1",
+    "es6ify": "^1.3.0",
+    "glob": "^4.0.5",
     "mkdirp": "^0.5.0",
-    "mocha": "*",
-    "requirejs": "^2.1.11",
+    "mocha": "~1.21.4",
+    "testem": "^0.6.18",
     "traceur": "^0.0.58",
     "webidl-class-generator": "^1.0.0"
   },
   "dependencies": {
-    "webidl-conversions": "^1.0.0",
-    "webidl-html-reflector": "^1.0.0"
+    "webidl-conversions": "^1.0.1",
+    "webidl-html-reflector": "^1.0.1"
   }
 }
