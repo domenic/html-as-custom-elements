@@ -47,7 +47,7 @@ interface CustomHTMLMediaElement : HTMLElement {
   attribute MediaController? controller;
 
   // controls
-  attribute boolean controls;
+  [Reflect] attribute boolean controls;
   attribute double volume;
   attribute boolean muted;
   [Reflect=muted] attribute boolean defaultMuted;

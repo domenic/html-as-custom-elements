@@ -13,7 +13,9 @@ fs.readdirSync(idlDirectory).forEach(idlFileName => {
   var idlFilePath = path.resolve(idlDirectory, idlFileName);
   var idlContents = fs.readFileSync(idlFilePath, { encoding: 'utf-8' });
 
-  var generatedJS = generator(idlContents);
-  var jsFilePath = path.resolve(jsDirectory, path.basename(idlFileName, '.idl') + '.js');
+  var basename = path.basename(idlFileName, '.idl');
+  var implModuleName = `./${basename}-impl.js`;
+  var generatedJS = generator(idlContents, implModuleName);
+  var jsFilePath = path.resolve(jsDirectory, basename + '.js');
   fs.writeFileSync(jsFilePath, generatedJS);
 });

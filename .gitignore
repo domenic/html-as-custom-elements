@@ -5,3 +5,4 @@ browserified.js
 
 # generated from src/idl/*
 src/elements/*
+!src/elements/*-impl.js
