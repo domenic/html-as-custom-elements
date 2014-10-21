@@ -9,8 +9,6 @@ var fs = require('fs');
 var testFiles = glob.sync(path.resolve(__dirname, '../test/*.js')).map(function (p) { return path.resolve(p); });
 var bundlePath = path.resolve(process.cwd(), process.argv[2]);
 
-console.log(testFiles, bundlePath);
-
 var browserifyInstance = browserify({ debug: true }).add(es6ify.runtime).transform(es6ify);
 
 // Work around https://github.com/substack/node-browserify/issues/873

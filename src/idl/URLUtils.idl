@@ -1,0 +1,16 @@
+// https://url.spec.whatwg.org/#urlutils
+[NoInterfaceObject]
+interface URLUtils {
+  [NoConversion] stringifier attribute USVString href;
+  [NoConversion] readonly attribute USVString origin;
+  [NoConversion] attribute USVString protocol;
+  [NoConversion] attribute USVString username;
+  [NoConversion] attribute USVString password;
+  [NoConversion] attribute USVString host;
+  [NoConversion] attribute USVString hostname;
+  [NoConversion] attribute USVString port;
+  [NoConversion] attribute USVString pathname;
+  [NoConversion] attribute USVString search;
+  attribute URLSearchParams searchParams;
+  [NoConversion] attribute USVString hash;
+};

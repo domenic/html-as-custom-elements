@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<title>HTML as Custom Elements Demo!</title>
+
+<link rel="stylesheet" href="src/styles/html.css">
+<script src="traceur-runtime.js"></script>
+<script src="html.js"></script>
+
+<custom-p>This is a custom paragraph with a <custom-a href="http://example.com/">custom &lt;a&gt; tag</custom-a> inside it.</custom-p>
+
+Diagnostics:
+<custom-p id="diagnostics"></custom-p>
+
+<script>
+(function () {
+  "use strict";
+
+  var a = document.querySelector("custom-a");
+  document.querySelector("#diagnostics").textContent = "a.href: " + a.href + " / a.protocol: " + a.protocol;
+}());
+</script>
