@@ -4,6 +4,8 @@ import { setAll as setPrivateMethods } from './private-methods.js';
 export default class CustomHTMLAnchorElementImpl {
   createdCallback() {
     doSetTheInput(this);
+
+    addDefaultEventListener(this, 'click', () => window.location.href = this.href);
   }
 
   attributeChangedCallback(name) {
@@ -33,4 +35,15 @@ setPrivateMethods('CustomHTMLAnchorElement', {
 function doSetTheInput(el) {
   var urlInput = el.hasAttribute('href') ? el.getAttribute('href') : '';
   setTheInput(el, urlInput);
+}
+
+// This might be more generally useful; if so factor it out into its own file.
+function addDefaultEventListener(eventTarget, eventName, listener) {
+  eventTarget.addEventListener(eventName, e => {
+    setTimeout(() => {
+      if (!e.defaultPrevented) {
+        listener(e);
+      }
+    }, 0);
+  });
 }
