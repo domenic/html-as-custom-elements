@@ -1,0 +1,16 @@
+/* NB some of these technically apply to <custom-area> and <custom-link> as well, but for now we're doing
+  element-per-file */
+
+custom-a[href] {
+  color: #0000EE;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+custom-a[href][rel~=help] {
+  cursor: help;
+}
+
+custom-a[href]:active {
+  color: #FF0000;
+}

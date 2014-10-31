@@ -1056,16 +1056,6 @@ custom-input[type="file"]:focus::-webkit-file-upload-button {
     outline-offset: 0
 }
 
-custom-a:-webkit-any-link {
-    color: -webkit-link;
-    text-decoration: underline;
-    cursor: auto;
-}
-
-custom-a:-webkit-any-link:active {
-    color: -webkit-activelink
-}
-
 /* HTML5 ruby elements */
 
 custom-ruby, custom-rt {
