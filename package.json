@@ -4,11 +4,12 @@
   "description": "Re-building the elements of HTML on top of custom elements technology",
   "scripts": {
     "test": "testem ci",
-    "watch": "testem",
-    "gulp": "gulpur",
+    "test-watch": "testem",
     "prepublish": "gulpur generate-from-idl",
     "pretest": "npm run prepublish",
-    "demo": "beefy node_modules/traceur/bin/traceur-runtime.js:traceur-runtime.js src/html.js:html.js --index=demo.html --open -- -t es6ify"
+    "gulp": "gulpur",
+    "demo": "gulpur demo",
+    "demo-watch": "gulpur watch"
   },
   "repository": "domenic/html-as-custom-elements",
   "keywords": [
@@ -19,7 +20,6 @@
   "author": "Domenic Denicola <d@domenic.me> (https://domenic.me/)",
   "license": "  Apache-2.0",
   "devDependencies": {
-    "beefy": "^2.1.1",
     "browserify": "^7.0.2",
     "chai": "^1.9.1",
     "es6ify": "^1.6.0",
@@ -28,12 +28,10 @@
     "gulp-changed": "^1.1.0",
     "gulp-util": "^3.0.1",
     "gulpur": "domenic/gulpur#new-traceur",
-    "mkdirp": "^0.5.0",
     "mocha": "~1.21.4",
     "testem": "^0.6.18",
     "through2": "^0.6.3",
     "traceur": "0.0.79",
-    "traceur-runner": "^1.0.2",
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^2.2.1",
     "webidl-class-generator": "^1.5.1"
