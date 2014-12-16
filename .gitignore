@@ -3,6 +3,10 @@ node_modules
 # generated during test runs
 browserified.js
 
+# generated for demo
+demo/styles/
+demo/generated/
+
 # generated from src/idl/*
 src/elements/*
 !src/elements/*-impl.js
