@@ -1,4 +1,3 @@
-'use strict';
 const path = require('path');
 const watchify = require('watchify');
 const browserify = require('browserify');
