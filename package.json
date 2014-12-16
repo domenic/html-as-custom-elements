@@ -8,7 +8,7 @@
   "scripts": {
     "test": "testem ci",
     "watch": "testem",
-    "prepublish": "node scripts/traceur-runner.js scripts/generate-from-idl.js",
+    "prepublish": "traceur-runner scripts/generate-from-idl.js",
     "pretest": "npm run prepublish",
     "demo": "beefy node_modules/traceur/bin/traceur-runtime.js:traceur-runtime.js src/html.js:html.js --index=demo.html --open -- -t es6ify"
   },
@@ -29,17 +29,18 @@
     "beefy": "^2.1.1",
     "browserify": "^5.10.1",
     "chai": "^1.9.1",
-    "es6ify": "^1.5.1",
+    "es6ify": "^1.6.0",
     "glob": "^4.0.5",
     "mkdirp": "^0.5.0",
     "mocha": "~1.21.4",
     "testem": "^0.6.18",
-    "traceur": "0.0.72",
+    "traceur": "0.0.79",
+    "traceur-runner": "^1.0.2",
     "watchify": "^2.1.0",
-    "webidl-class-generator": "^1.5.0"
+    "webidl-class-generator": "^1.5.1"
   },
   "dependencies": {
-    "webidl-conversions": "^1.2.0",
-    "webidl-html-reflector": "^1.0.1"
+    "webidl-conversions": "^1.2.1",
+    "webidl-html-reflector": "^1.0.2"
   }
 }
