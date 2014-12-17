@@ -9,52 +9,57 @@ const source = require('vinyl-source-stream');
 import webidlClassGenerator from 'webidl-class-generator';
 
 const TRACEUR_RUNTIME = require.resolve('traceur/bin/traceur-runtime.js');
-const DEMO_GENERATED_DEST = './demo/generated';
+const DEMO_JS_ENTRY = './demo/entry.js';
 const DEMO_STYLES_SOURCE = './src/styles/*.css';
-const DEMO_STYLES_DEST = './demo/styles';
+const DEMO_GENERATED_DEST = './demo/generated/';
+const DEMO_STYLES_DEST = './demo/styles/';
+const DEMO_BUNDLE_FILENAME = 'bundle.js';
 const IDL_SOURCE = './src/idl/*.idl';
-const ELEMENTS_DEST = './src/elements';
-const BUNDLE_FILENAME = 'bundle.js';
+const ELEMENTS_DEST = './src/elements/';
 
-gulp.task('generate-from-idl', () => {
+gulp.task('generate-from-idl', () =>
   gulp.src(IDL_SOURCE)
     .pipe(changed(ELEMENTS_DEST))
     .pipe(idlToJS())
-    .pipe(gulp.dest(ELEMENTS_DEST));
-});
+    .pipe(gulp.dest(ELEMENTS_DEST))
+);
 
-gulp.task('watch', () => {
-  const bundler = watchify(browserify('./demo/entry.js', watchify.args), { debug: true }).transform('es6ify');
-  bundleDemo(bundler);
-  bundler.on('update', () => bundleDemo(bundler));
+gulp.task('demo', ['bundle-demo-js', 'copy-demo-css']);
 
+gulp.task('demo-watch', ['generate-from-idl', 'copy-demo-css', 'watch-demo-js'], () => {
   gulp.watch(IDL_SOURCE, ['generate-from-idl']);
-  gulp.watch(TRACEUR_RUNTIME, copyTraceurRuntime);
-  gulp.watch(DEMO_STYLES_SOURCE, copyCSS);
+  gulp.watch(DEMO_STYLES_SOURCE, ['copy-demo-css']);
 });
 
-gulp.task('demo', () => {
-  bundleDemo(browserify('./demo/entry.js', { debug: true }));
-  copyTraceurRuntime();
-  copyCSS();
-});
+gulp.task('bundle-demo-js', () => bundleDemoJS({ watch: false }));
+gulp.task('watch-demo-js', () => bundleDemoJS({ watch: true }));
 
-function bundleDemo(bundler) {
-  return bundler.bundle()
-    .pipe(source(`./${BUNDLE_FILENAME}`))
-    .pipe(gulp.dest(DEMO_GENERATED_DEST));
-}
-
-function copyCSS() {
+gulp.task('copy-demo-css', () =>
   gulp.src(DEMO_STYLES_SOURCE)
     .pipe(changed(DEMO_STYLES_DEST))
-    .pipe(gulp.dest(DEMO_STYLES_DEST));
+    .pipe(gulp.dest(DEMO_STYLES_DEST))
+);
+
+
+function bundleDemoJS({ watch }) {
+  const browserifyArgs = { debug : true };
+  const computedBrowserifyArgs = watch ? Object.assign(browserifyArgs, watchify.args) : browserifyArgs;
+
+  let bundler = browserify([TRACEUR_RUNTIME, DEMO_JS_ENTRY], computedBrowserifyArgs).transform('es6ify');
+  if (watch) {
+    bundler = watchify(bundler);
+    bundler.on('update', () => pipeDemoBundle(bundler));
+  }
+
+  return pipeDemoBundle(bundler);
 }
 
-function copyTraceurRuntime() {
-  gulp.src(TRACEUR_RUNTIME)
-    .pipe(changed(DEMO_GENERATED_DEST))
-    .pipe(gulp.dest(DEMO_GENERATED_DEST));
+function pipeDemoBundle(bundler) {
+  gutil.log('Bundling demo...');
+  return bundler.bundle()
+      .pipe(source(`./${DEMO_BUNDLE_FILENAME}`))
+      .pipe(gulp.dest(DEMO_GENERATED_DEST))
+      .on('end', () => gutil.log('Bundling demo finished'));
 }
 
 function idlToJS() {

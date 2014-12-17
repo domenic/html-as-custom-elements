@@ -9,7 +9,7 @@
     "pretest": "npm run prepublish",
     "gulp": "gulpur",
     "demo": "gulpur demo",
-    "demo-watch": "gulpur watch"
+    "demo-watch": "gulpur demo-watch"
   },
   "repository": "domenic/html-as-custom-elements",
   "keywords": [
