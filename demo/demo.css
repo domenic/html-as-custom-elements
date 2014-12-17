@@ -1,0 +1,110 @@
+/* Resets */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+caption {
+  margin: 0;
+  text-align: left;
+}
+
+th {
+  text-align: left;
+}
+
+/* Overall layout */
+
+html {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin-left: 200px;
+  margin-top: 100px;
+  padding: 20px 20px 0 20px;
+}
+
+body > header, body > nav {
+  background: #246B61;
+  color: white;
+}
+
+body > header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  height: 100px;
+  padding-left: 30px;
+  font-size: 20px;
+
+  display: flex;
+  align-items: center;
+}
+
+body > nav {
+  width: 200px;
+  min-height: 100vh;
+  position: fixed;
+  top: 100px;
+  left: 0;
+  padding-left: 15px;
+}
+
+body > nav > a {
+  color: white;
+  display: block;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+}
+
+body > nav > a.selected {
+  background: white;
+  color: black;
+}
+
+/* Per-element section */
+
+body > section > h1 {
+  background: #43857C;
+  color: white;
+  padding: 10px;
+}
+
+.example, .properties {
+  border: 1px solid #6BA099;
+  margin: 20px 0;
+  padding: 5px;
+}
+
+.example > h2, .properties > caption {
+  font-size: 18px;
+  font-weight: bold;
+  padding: 5px;
+  background: #6BA099;
+}
+
+.example > h2 {
+  margin: -5px -5px 8px -5px;
+}
+
+.properties {
+  border-collapse: collapse;
+}
+
+.properties thead {
+  display: none;
+}
+
+.properties td {
+  border: 1px solid #6BA099;
+  padding: 4px;
+  vertical-align: middle;
+  font-family: Consolas, Monaco, monospace;
+}

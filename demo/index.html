@@ -3,18 +3,40 @@
 
 <link rel="stylesheet" href="styles/html.css">
 <link rel="stylesheet" href="styles/custom-a.css">
-<script src="generated/bundle.js"></script>
+<link rel="stylesheet" href="demo.css">
 
-<custom-p>This is a custom paragraph with a <custom-a href="http://example.com/">custom &lt;a&gt; tag</custom-a> inside it.</custom-p>
+<header>
+  <h1>HTML as Custom Elements</h1>
+</header>
 
-Diagnostics:
-<custom-p id="diagnostics"></custom-p>
+<nav>
+  <a href="#custom-a">&lt;custom-a&gt;</a>
+</nav>
 
-<script>
-(function () {
-  "use strict";
+<section id="custom-a">
+  <h1>&lt;custom-a&gt;</h1>
 
-  var a = document.querySelector("custom-a");
-  document.querySelector("#diagnostics").textContent = "a.href: " + a.href + " / a.protocol: " + a.protocol;
-}());
-</script>
+  <aside class="example custom">
+    <h2>&lt;custom-a&gt; example</h2>
+    <p>My favorite site on the internet is <custom-a href="http://example.com/">example.com</custom-a>.</p>
+  </aside>
+
+  <aside class="example standard">
+    <h2>&lt;a&gt; example</h2>
+    <p>My favorite site on the internet is <a href="http://example.com/">example.com</a>.</p>
+  </aside>
+
+  <table class="properties">
+    <caption>Properties</caption>
+    <thead>
+      <tr>
+        <th>Property</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</section>
+
+<script async defer src="generated/bundle.js"></script>
