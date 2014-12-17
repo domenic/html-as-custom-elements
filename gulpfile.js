@@ -1,6 +1,7 @@
 const path = require('path');
 const watchify = require('watchify');
 const browserify = require('browserify');
+const es6ify = require('es6ify');
 const gulp = require('gulp');
 const changed = require('gulp-changed');
 const through2 = require('through2');
@@ -45,7 +46,10 @@ function bundleDemoJS({ watch }) {
   const browserifyArgs = { debug : true };
   const computedBrowserifyArgs = watch ? Object.assign(browserifyArgs, watchify.args) : browserifyArgs;
 
-  let bundler = browserify([TRACEUR_RUNTIME, DEMO_JS_ENTRY], computedBrowserifyArgs).transform('es6ify');
+  let bundler = browserify([TRACEUR_RUNTIME, DEMO_JS_ENTRY], computedBrowserifyArgs)
+    .transform(es6ify.configure(/^(?!.*node_modules)+.+\.js$/));
+  // TODO: key on traceur-runner: true instead of not-in-node_modules
+
   if (watch) {
     bundler = watchify(bundler);
     bundler.on('update', () => pipeDemoBundle(bundler));

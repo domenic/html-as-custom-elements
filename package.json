@@ -28,6 +28,7 @@
     "gulp-changed": "^1.1.0",
     "gulp-util": "^3.0.1",
     "gulpur": "domenic/gulpur#new-traceur",
+    "jquery": "^2.1.2",
     "mocha": "~1.21.4",
     "testem": "^0.6.18",
     "through2": "^0.6.3",

@@ -1,21 +1,23 @@
 import '../src/html.js';
+const $ = require('jquery');
 
 fillInPropertyTable('custom-a');
-window.addEventListener('hashchange', setSelectedLink);
+$(window).on('hashchange', setSelectedLink);
 setSelectedLink();
 
 function fillInPropertyTable(elementName) {
-  const section = document.querySelector('section#' + elementName);
-  const el = section.querySelector('.example.custom ' + elementName);
-  const table = section.querySelector('table.properties');
-  const tbody = table.querySelector('tbody');
+  const section = $('section#' + elementName);
+  const el = section.find('.example.custom ' + elementName)[0];
+  const tbody = section.find('table.properties tbody');
 
   const properties = Object.keys(Object.getPrototypeOf(el));
   const rowsHtml = properties.reduce(
     (soFar, prop) => soFar + `<tr><td>${prop}</td><td>${getPropertyValue(el, prop)}</td></tr>`,
     ''
   );
-  tbody.innerHTML = rowsHtml;
+  tbody.html(rowsHtml);
+
+  $(tbody).on('input', ev => updateOtherProperties(event.target, tbody, el));
 }
 
 function getPropertyValue(el, prop) {
@@ -28,20 +30,24 @@ function getPropertyValue(el, prop) {
   }
 
   if (typeof val === 'string') {
-    return `"${val}"`;
+    return `<input type="text" data-property-name="${prop}" value="${val}">`;
   }
   return val;
 }
 
-function setSelectedLink() {
-  const nav = document.querySelector('body > nav');
-  const previouslySelected = nav.querySelector('a.selected');
-  if (previouslySelected) {
-    previouslySelected.classList.remove('selected');
-  }
+function updateOtherProperties(changedPropertyInput, tbody, customEl) {
+  const changedPropertyName = changedPropertyInput.dataset.propertyName;
+  customEl[changedPropertyName] = changedPropertyInput.value;
 
-  const newlySelected = nav.querySelector(`a[href="${window.location.hash}"]`);
-  if (newlySelected) {
-    newlySelected.classList.add('selected');
+  for (const input of Array.from(tbody.find('input[type="text"]'))) {
+    if (input !== changedPropertyInput) {
+      input.value = customEl[input.dataset.propertyName];
+    }
   }
+}
+
+function setSelectedLink() {
+  const nav = $('body > nav');
+  nav.find('a.selected').removeClass('selected');
+  nav.find(`a[href="${window.location.hash}"]`).addClass('selected');
 }

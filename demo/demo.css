@@ -15,6 +15,10 @@ th {
   text-align: left;
 }
 
+input {
+  font: inherit;
+}
+
 /* Overall layout */
 
 html {
@@ -96,6 +100,7 @@ body > section > h1 {
 
 .properties {
   border-collapse: collapse;
+  width: 100%;
 }
 
 .properties thead {
@@ -107,4 +112,18 @@ body > section > h1 {
   padding: 4px;
   vertical-align: middle;
   font-family: Consolas, Monaco, monospace;
+}
+
+.properties td:first-of-type {
+  width: 150px;
+}
+
+.properties input[type="text"] {
+  border: 1px solid transparent;
+  padding: 2px;
+  width: 100%;
+}
+
+.properties td:hover input[type="text"] {
+  border: 1px solid #CCC;
 }
