@@ -13,7 +13,7 @@ export default function registerElement(tagName, Constructor) {
   // Delete any custom element callbacks since native elements don't have them and we don't want that kind of
   // observable difference. Their presence only matters at registration time anyway.
   for (const callback of callbacks) {
-    delete GeneratedConstructor[callback];
+    delete GeneratedConstructor.prototype[callback];
   }
 
   // Register the appropriate private methods under the generated constructor name, since when they are looked up at
