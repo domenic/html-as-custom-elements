@@ -11,6 +11,7 @@
 
 <nav>
   <a href="#custom-a">&lt;custom-a&gt;</a>
+  <a href="#custom-blockquote">&lt;custom-blockquote&gt;</a>
   <a href="#custom-div">&lt;custom-div&gt;</a>
   <a href="#custom-hr">&lt;custom-hr&gt;</a>
   <a href="#custom-span">&lt;custom-span&gt;</a>
@@ -52,6 +53,47 @@
       <li> Does not match <code>:link</code>, <code>:visited</code>, or <code>:any-link</code> CSS pseudoclasses, since the spec hard-codes <code>a</code> as the only tag name allowed to do so (<a href="https://github.com/domenic/html-as-custom-elements/issues/38">#38</a>)
       <li> Does not cause the status bar to show the URL when hovering over it (<a href="https://github.com/domenic/html-as-custom-elements/issues/39">#39</a>)
       <li> Not reflected correctly to accessibility technology (see <a href="https://github.com/domenic/html-as-custom-elements/blob/master/docs/accessibility.md">"Gap Analysis: Accessibility"</a>)
+    </ul>
+  </section>
+</section>
+
+<section id="custom-blockquote">
+  <h1>&lt;custom-blockquote&gt;</h1>
+
+  <aside class="example custom">
+    <h2>&lt;custom-blockquote&gt; example</h2>
+    <custom-blockquote cite="http://quotes.example.org/s/sonnet130.html">
+      My mistress' eyes are nothing like the sun,<br>
+      Coral is far more red, than her lips red,<br>
+      ...
+    </custom-blockquote>
+  </aside>
+
+  <aside class="example standard">
+    <h2>&lt;blockquote&gt; example</h2>
+    <blockquote cite="http://quotes.example.org/s/sonnet130.html">
+      My mistress' eyes are nothing like the sun,<br>
+      Coral is far more red, than her lips red,<br>
+      ...
+    </blockquote>
+  </aside>
+
+  <table class="properties">
+    <caption>Properties</caption>
+    <thead>
+      <tr>
+        <th>Property</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <section>
+    <h1>Known Issues</h1>
+    <ul>
+      <li> <code>HTMLQuoteElement</code> is shared between <code>&lt;blockquote&gt;</code> and <code>&lt;q&gt;</code>, but you cannot register a single custom element prototype with multiple tag names, so <code>CustomHTMLQuoteElement</code> cannot be used for <code>&lt;custom-q&gt;</code>
     </ul>
   </section>
 </section>

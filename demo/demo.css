@@ -2,6 +2,9 @@
 
 * {
   box-sizing: border-box;
+}
+
+html, body, h1, h2, h3, h4, h5, h6, ul, ol, li, input {
   margin: 0;
   padding: 0;
 }
@@ -27,7 +30,7 @@ html {
 
 body {
   margin-left: 200px;
-  padding: 20px 20px 40px 20px;
+  padding: 0 20px;
 }
 
 body > header, body > nav {
@@ -76,6 +79,7 @@ body > nav > a.selected {
 
 body > section {
   padding-top: 100px;
+  min-height: 100vh;
 }
 
 body > section > h1 {
@@ -132,7 +136,6 @@ body > section > section > h1 {
 
 .properties input[type="text"] {
   border: 1px solid transparent;
-  padding: 2px;
   width: 100%;
 }
 
