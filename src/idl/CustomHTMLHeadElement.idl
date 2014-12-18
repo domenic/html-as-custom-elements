@@ -1,1 +1,1 @@
-interface CustomHTMLSpanElement : HTMLElement {};
+interface CustomHTMLHeadElement : HTMLElement {};
