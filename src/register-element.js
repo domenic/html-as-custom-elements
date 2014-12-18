@@ -1,4 +1,4 @@
-import * as privateMethods from './elements/private-methods.js';
+import * as privateMethods from './private-methods.js';
 
 const callbacks = ['createdCallback', 'attachedCallback', 'detachedCallback', 'attributeChangedCallback'];
 

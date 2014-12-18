@@ -1,5 +1,5 @@
 import { setTheInput } from './URLUtils-impl.js';
-import { setAll as setPrivateMethods } from './private-methods.js';
+import { setAll as setPrivateMethods } from '../private-methods.js';
 
 export default class CustomHTMLAnchorElementImpl {
   createdCallback() {

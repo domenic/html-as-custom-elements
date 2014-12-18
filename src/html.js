@@ -1,14 +1,14 @@
-import registerElement from './register-element';
+import registerElement from './register-element.js';
 
-import CustomHTMLDivElement from './elements/CustomHTMLDivElement';
-import CustomHTMLHeadElement from './elements/CustomHTMLHeadElement';
-import CustomHTMLHRElement from './elements/CustomHTMLHRElement';
-import CustomHTMLQuoteElement from './elements/CustomHTMLQuoteElement';
-import CustomHTMLSpanElement from './elements/CustomHTMLSpanElement';
-import CustomHTMLAnchorElement from './elements/CustomHTMLAnchorElement';
+import CustomHTMLDivElement from './elements/CustomHTMLDivElement.js';
+import CustomHTMLHeadElement from './elements/CustomHTMLHeadElement.js';
+import CustomHTMLHRElement from './elements/CustomHTMLHRElement.js';
+import CustomHTMLQuoteElement from './elements/CustomHTMLQuoteElement.js';
+import CustomHTMLSpanElement from './elements/CustomHTMLSpanElement.js';
+import CustomHTMLAnchorElement from './elements/CustomHTMLAnchorElement.js';
 
-import './elements/CustomHTMLMediaElement';
-import CustomHTMLAudioElement from './elements/CustomHTMLAudioElement';
+import './elements/CustomHTMLMediaElement.js';
+import CustomHTMLAudioElement from './elements/CustomHTMLAudioElement.js';
 
 registerElement('custom-blockquote', CustomHTMLQuoteElement);
 registerElement('custom-div', CustomHTMLDivElement);

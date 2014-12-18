@@ -1,4 +1,4 @@
-import * as privateMethods from './private-methods.js';
+import * as privateMethods from '../private-methods.js';
 
 // Reimplementing URLUtils mixin in terms of URL, somewhat ironically.
 

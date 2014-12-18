@@ -1,5 +1,12 @@
 #!/bin/bash
+set -e
+
 npm run demo
+
+if [ "$TRAVIS_BRANCH" != "master" ]; then
+  exit 0
+fi
+
 cd demo
 git init
 git config user.name "Travis-CI"
