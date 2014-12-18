@@ -10,18 +10,19 @@ setSelectedLink();
 
 function fillInPropertyTable(elementName) {
   const section = $('section#' + elementName);
-  const el = section.find('.example.custom ' + elementName)[0];
+  const customEl = section.find('.example.custom ' + elementName)[0];
+  const standardEl = section.find('.example.standard ' + elementName.replace(/^custom-/, ''))[0];
   const tbody = section.find('table.properties tbody');
 
-  const properties = Object.keys(Object.getPrototypeOf(el));
+  const properties = Object.keys(Object.getPrototypeOf(customEl));
   const rowsHtml = properties.reduce(
-    (soFar, prop) => soFar + `<tr><td>${prop}</td><td>${getPropertyValue(el, prop)}</td></tr>`,
+    (soFar, prop) => soFar + `<tr><td>${prop}</td><td>${getPropertyValue(customEl, prop)}</td></tr>`,
     ''
   );
   tbody.html(rowsHtml || '<tr><td colspan="2">(No properties)</td></tr>');
 
-  $(tbody).on('input', 'input[type="text"]', ev => updateOtherProperties(event.target, el));
-  $(tbody).on('blur', 'input[type="text"]', ev => updateSingleProperty(event.target, el));
+  $(tbody).on('input', 'input[type="text"]', ev => updateOtherProperties(event.target, customEl, standardEl));
+  $(tbody).on('blur', 'input[type="text"]', ev => updateSingleProperty(event.target, customEl));
 }
 
 function getPropertyValue(el, prop) {
@@ -43,10 +44,11 @@ function getPropertyValue(el, prop) {
   return val;
 }
 
-function updateOtherProperties(changedPropertyInput, customEl) {
+function updateOtherProperties(changedPropertyInput, customEl, standardEl) {
   const changedRow = changedPropertyInput.parentElement.parentElement;
   const changedPropertyName = changedRow.children[0].textContent;
 
+  standardEl[changedPropertyName] = changedPropertyInput.value;
   customEl[changedPropertyName] = changedPropertyInput.value;
 
   for (const row of Array.from($(changedRow).siblings())) {
