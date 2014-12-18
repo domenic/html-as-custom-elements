@@ -1,7 +1,10 @@
 import '../src/html.js';
 const $ = require('jquery');
 
-fillInPropertyTable('custom-a');
+for (const section of Array.from(document.querySelectorAll('body > section'))) {
+  fillInPropertyTable(section.id);
+}
+
 $(window).on('hashchange', setSelectedLink);
 setSelectedLink();
 
@@ -15,7 +18,7 @@ function fillInPropertyTable(elementName) {
     (soFar, prop) => soFar + `<tr><td>${prop}</td><td>${getPropertyValue(el, prop)}</td></tr>`,
     ''
   );
-  tbody.html(rowsHtml);
+  tbody.html(rowsHtml || '<tr><td colspan="2">(No properties)</td></tr>');
 
   $(tbody).on('input', 'input[type="text"]', ev => updateOtherProperties(event.target, el));
   $(tbody).on('blur', 'input[type="text"]', ev => updateSingleProperty(event.target, el));
