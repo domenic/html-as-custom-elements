@@ -17,7 +17,8 @@ function fillInPropertyTable(elementName) {
   );
   tbody.html(rowsHtml);
 
-  $(tbody).on('input', ev => updateOtherProperties(event.target, tbody, el));
+  $(tbody).on('input', 'input[type="text"]', ev => updateOtherProperties(event.target, el));
+  $(tbody).on('blur', 'input[type="text"]', ev => updateSingleProperty(event.target, el));
 }
 
 function getPropertyValue(el, prop) {
@@ -30,20 +31,33 @@ function getPropertyValue(el, prop) {
   }
 
   if (typeof val === 'string') {
-    return `<input type="text" data-property-name="${prop}" value="${val}">`;
+    if (typeof Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el), prop).set === 'function') {
+      return `<input type="text" value="${val}">`;
+    } else {
+      return val;
+    }
   }
   return val;
 }
 
-function updateOtherProperties(changedPropertyInput, tbody, customEl) {
-  const changedPropertyName = changedPropertyInput.dataset.propertyName;
+function updateOtherProperties(changedPropertyInput, customEl) {
+  const changedRow = changedPropertyInput.parentElement.parentElement;
+  const changedPropertyName = changedRow.children[0].textContent;
+
   customEl[changedPropertyName] = changedPropertyInput.value;
 
-  for (const input of Array.from(tbody.find('input[type="text"]'))) {
-    if (input !== changedPropertyInput) {
-      input.value = customEl[input.dataset.propertyName];
-    }
+  for (const row of Array.from($(changedRow).siblings())) {
+    const propName = row.children[0].textContent;
+    const valueCell = row.children[1];
+    valueCell.innerHTML = getPropertyValue(customEl, propName);
   }
+}
+
+function updateSingleProperty(changedPropertyInput, customEl) {
+  const changedRow = changedPropertyInput.parentElement.parentElement;
+  const changedPropertyName = changedRow.children[0].textContent;
+
+  changedRow.children[1].innerHTML = getPropertyValue(customEl, changedPropertyName);
 }
 
 function setSelectedLink() {
