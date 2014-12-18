@@ -1,0 +1,8 @@
+language: node_js
+node_js:
+- "0.10"
+script: bash ./deploy.sh
+env:
+ global:
+ - GH_REF: github.com/domenic/html-as-custom-elements.git
+ - secure: "kSmCZPagUvDU/UoQEgNAUdc45D5zUKZrGJ5Z+N10AVEOhpoz4l7tI5oEdiJMFDaWnZ/kRSNuckFpW2AEMpyXtWNO78zd5cYDH3K31Z7vzblQWJvYVHybhFdB6VuaH6uvN5r9MAg+CDDEHzRhTKYip8lEzaNDCdcOZ+hThcYNKMk="
