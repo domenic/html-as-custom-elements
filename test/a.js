@@ -23,4 +23,12 @@ describe('a', () => {
       expect(a.href).to.equal((new URL('index.html', document.baseURI)).toString());
     });
   });
+
+  describe('toString', () => {
+    it('should return the href', () => {
+      const href = 'http://example.com/';
+      a.href = href;
+      expect(a.toString()).to.equal(href);
+    });
+  });
 });

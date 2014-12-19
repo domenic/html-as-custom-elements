@@ -36,7 +36,7 @@
     "traceur": "0.0.79",
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^2.2.1",
-    "webidl-class-generator": "^1.5.1"
+    "webidl-class-generator": "^1.6.0"
   },
   "dependencies": {
     "webidl-conversions": "^1.2.1",
