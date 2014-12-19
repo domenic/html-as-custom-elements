@@ -77,10 +77,6 @@ custom-p {
     -webkit-margin-end: 0;
 }
 
-custom-div {
-    display: block
-}
-
 custom-layer {
     display: block
 }
@@ -95,14 +91,6 @@ custom-marquee {
 
 custom-address {
     display: block
-}
-
-custom-blockquote {
-    display: block;
-    -webkit-margin-before: 1__qem;
-    -webkit-margin-after: 1em;
-    -webkit-margin-start: 40px;
-    -webkit-margin-end: 40px;
 }
 
 custom-figcaption {
@@ -133,16 +121,6 @@ custom-center {
     display: block;
     /* special centering to be able to emulate the html4/netscape behaviour */
     text-align: -webkit-center
-}
-
-custom-hr {
-    display: block;
-    -webkit-margin-before: 0.5em;
-    -webkit-margin-after: 0.5em;
-    -webkit-margin-start: auto;
-    -webkit-margin-end: auto;
-    border-style: inset;
-    border-width: 1px
 }
 
 custom-map {
