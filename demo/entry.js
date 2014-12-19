@@ -1,11 +1,16 @@
 import '../src/html.js';
 const $ = require('jquery');
 
-for (const section of Array.from(document.querySelectorAll('body > section'))) {
+const sections = Array.from(document.querySelectorAll('body > section'));
+for (const section of sections) {
   fillInPropertyTable(section.id);
 }
 
 $(window).on('hashchange', setSelectedLink);
+$(window).on('scroll', setHashFromScroll)
+if (!window.location.hash) {
+  setHashFromScroll();
+}
 setSelectedLink();
 
 function fillInPropertyTable(elementName) {
@@ -69,4 +74,19 @@ function setSelectedLink() {
   const nav = $('body > nav');
   nav.find('a.selected').removeClass('selected');
   nav.find(`a[href="${window.location.hash}"]`).addClass('selected');
+}
+
+function setHashFromScroll() {
+  const bodyScrollTop = document.body.scrollTop;
+  let minDifference = +Infinity;
+  let minSectionId;
+  for (const section of sections) {
+    const difference = Math.abs(section.offsetTop - bodyScrollTop);
+    if (difference < minDifference) {
+      minDifference = difference;
+      minSectionId = section.id;
+    }
+  }
+
+  window.location.hash = minSectionId;
 }
