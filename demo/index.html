@@ -102,6 +102,7 @@
     <h1>Known Issues</h1>
     <ul>
       <li> <code>HTMLQuoteElement</code> is shared between <code>&lt;blockquote&gt;</code> and <code>&lt;q&gt;</code>, but you cannot register a single custom element prototype with multiple tag names, so <code>CustomHTMLQuoteElement</code> cannot be used for <code>&lt;custom-q&gt;</code>
+      <li> The Blink user agent stylesheet for <code>&lt;blockquote&gt;</code> uses nonstandard properties <code>-webkit-margin-before</code>, <code>-webkit-margin-after</code>, <code>-webkit-margin-start</code>, and <code>-webkit-margin-end</code>, as well as the nonstandard unit <code>__qem</code> (<a href="https://github.com/domenic/html-as-custom-elements/issues/40">#40</a>)
     </ul>
   </section>
 </section>
@@ -170,6 +171,7 @@
     <h1>Known Issues</h1>
     <ul>
       <li> Presentational attributes do not work yet
+      <li> The Blink user agent stylesheet for <code>&lt;hr&gt;</code> uses nonstandard properties <code>-webkit-margin-before</code>, <code>-webkit-margin-after</code>, <code>-webkit-margin-start</code>, and <code>-webkit-margin-end</code> (<a href="https://github.com/domenic/html-as-custom-elements/issues/40">#40</a>)
       <li> Not reflected correctly to accessibility technology (see <a href="https://github.com/domenic/html-as-custom-elements/blob/master/docs/accessibility.md">"Gap Analysis: Accessibility"</a>)
     </ul>
   </section>

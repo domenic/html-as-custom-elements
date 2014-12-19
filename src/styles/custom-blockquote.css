@@ -1,3 +1,5 @@
+/* See: https://github.com/domenic/html-as-custom-elements/issues/40 for nonstandard property usage */
+
 custom-blockquote {
   display: block;
   -webkit-margin-before: 1__qem;
