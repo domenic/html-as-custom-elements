@@ -59,6 +59,7 @@
       <li> <code>target=""</code>, <code>ping=""</code>, and <code>download=""</code> attributes have not yet been implemented (if they can be)
       <li> Should be focusable (this is a major gap in custom elements functionality)
       <li> Does not match <code>:link</code>, <code>:visited</code>, or <code>:any-link</code> CSS pseudoclasses, since the spec hard-codes <code>a</code> as the only tag name allowed to do so (<a href="https://github.com/domenic/html-as-custom-elements/issues/38">#38</a>)
+      <li> The default styling is incorrectly placed in the CSS cascade, and so e.g. styling <code>*</code> does not overwrite it (<a href="https://github.com/domenic/html-as-custom-elements/issues/27">#27</a>)
       <li> Does not cause the status bar to show the URL when hovering over it (<a href="https://github.com/domenic/html-as-custom-elements/issues/39">#39</a>)
       <li> Not reflected correctly to accessibility technology (see <a href="https://github.com/domenic/html-as-custom-elements/blob/master/docs/accessibility.md">"Gap Analysis: Accessibility"</a>)
     </ul>
@@ -103,6 +104,7 @@
     <ul>
       <li> <code>HTMLQuoteElement</code> is shared between <code>&lt;blockquote&gt;</code> and <code>&lt;q&gt;</code>, but you cannot register a single custom element prototype with multiple tag names, so <code>CustomHTMLQuoteElement</code> cannot be used for <code>&lt;custom-q&gt;</code> (<a href="https://github.com/domenic/html-as-custom-elements/issues/19">#19</a>)
       <li> The Blink user agent stylesheet for <code>&lt;blockquote&gt;</code> uses nonstandard properties <code>-webkit-margin-before</code>, <code>-webkit-margin-after</code>, <code>-webkit-margin-start</code>, and <code>-webkit-margin-end</code>, as well as the nonstandard unit <code>__qem</code> (<a href="https://github.com/domenic/html-as-custom-elements/issues/40">#40</a>)
+      <li> The default styling is incorrectly placed in the CSS cascade, and so e.g. styling <code>*</code> does not overwrite it (<a href="https://github.com/domenic/html-as-custom-elements/issues/27">#27</a>)
     </ul>
   </section>
 </section>
@@ -134,7 +136,9 @@
 
   <section>
     <h1>Known Issues</h1>
-    <p>None!</p>
+    <ul>
+      <li> The default styling is incorrectly placed in the CSS cascade, and so e.g. styling <code>*</code> does not overwrite it (<a href="https://github.com/domenic/html-as-custom-elements/issues/27">#27</a>)
+    </ul>
   </section>
 </section>
 
@@ -172,6 +176,7 @@
     <ul>
       <li> Presentational attributes do not work yet
       <li> The Blink user agent stylesheet for <code>&lt;hr&gt;</code> uses nonstandard properties <code>-webkit-margin-before</code>, <code>-webkit-margin-after</code>, <code>-webkit-margin-start</code>, and <code>-webkit-margin-end</code> (<a href="https://github.com/domenic/html-as-custom-elements/issues/40">#40</a>)
+      <li> The default styling is incorrectly placed in the CSS cascade, and so e.g. styling <code>*</code> does not overwrite it (<a href="https://github.com/domenic/html-as-custom-elements/issues/27">#27</a>)
       <li> Not reflected correctly to accessibility technology (see <a href="https://github.com/domenic/html-as-custom-elements/blob/master/docs/accessibility.md">"Gap Analysis: Accessibility"</a>)
     </ul>
   </section>
