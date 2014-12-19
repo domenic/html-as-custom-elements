@@ -6,7 +6,8 @@ var privates = new WeakMap();
 
 export default class URLUtilsImpl {
   get href() {
-    return p(this).url.href;
+    const url = p(this).url;
+    return url === null ? p(this).input : url.href;
   }
   set href(v) {
     // Working around the exception in https://url.spec.whatwg.org/#dfnReturnLink-12
@@ -43,8 +44,15 @@ for (const prop of simpleProps) {
 export function setTheInput(target, input, url) {
   if (url !== undefined) {
     p(target).url = url;
+    p(target).input = input;
   } else {
-    p(target).url = new URL(input, privateMethods.call(target, 'getTheBase'));
+    p(target).url = null;
+    if (input === null) {
+      p(target).input = '';
+    } else {
+      p(target).input = input;
+      p(target).url = new URL(input, privateMethods.call(target, 'getTheBase'));
+    }
   }
 }
 

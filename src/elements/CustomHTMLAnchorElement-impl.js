@@ -25,7 +25,7 @@ export default class CustomHTMLAnchorElementImpl {
 setPrivateMethods('CustomHTMLAnchorElement', {
   // Required by URLUtils
   getTheBase() {
-    return this.baseURI;
+    return this.baseURI !== '' ? this.baseURI : this.ownerDocument.baseURI;
   },
   updateSteps(value) {
     this.setAttribute('href', value);
@@ -33,7 +33,7 @@ setPrivateMethods('CustomHTMLAnchorElement', {
 });
 
 function doSetTheInput(el) {
-  var urlInput = el.hasAttribute('href') ? el.getAttribute('href') : '';
+  var urlInput = el.hasAttribute('href') ? el.getAttribute('href') : null;
   setTheInput(el, urlInput);
 }
 
