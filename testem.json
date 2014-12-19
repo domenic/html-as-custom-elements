@@ -1,17 +1,22 @@
 {
+  "BUNDLE_FILE": "browserified.js",
   "framework": "mocha",
   "serve_files": [
     "browserified.js"
   ],
   "css_files": [
-    "src/styles/html.css"
+    "src/styles/html.css",
+    "src/styles/custom-a.css",
+    "src/styles/custom-blockquote.css",
+    "src/styles/custom-div.css",
+    "src/styles/custom-hr.css"
   ],
   "src_files": [
     "package.json",
     "src/**/*.*",
     "test/*.js"
   ],
-  "before_tests": "npm run prepublish && node scripts/compile-tests.js browserified.js",
+  "before_tests": "npm run prepublish && npm run bundle-tests",
   "on_exit": "rm browserified.js",
   "launch_in_dev": ["chrome"],
   "launch_in_ci": ["chrome"]

@@ -1,7 +1,9 @@
 const path = require('path');
+const fs = require('fs');
 const watchify = require('watchify');
 const browserify = require('browserify');
 const es6ify = require('es6ify');
+const glob = require('glob');
 const gulp = require('gulp');
 const changed = require('gulp-changed');
 const through2 = require('through2');
@@ -15,6 +17,8 @@ const DEMO_STYLES_SOURCE = './src/styles/*.css';
 const DEMO_GENERATED_DEST = './demo/generated/';
 const DEMO_STYLES_DEST = './demo/styles/';
 const DEMO_BUNDLE_FILENAME = 'bundle.js';
+const TEST_FILES = './test/*.js';
+const TEST_BUNDLE = require('./testem.json').BUNDLE_FILE;
 const IDL_SOURCE = './src/idl/*.idl';
 const ELEMENTS_DEST = './src/elements/';
 
@@ -32,8 +36,8 @@ gulp.task('demo-watch', ['generate-from-idl', 'copy-demo-css', 'watch-demo-js'],
   gulp.watch(DEMO_STYLES_SOURCE, ['copy-demo-css']);
 });
 
-gulp.task('bundle-demo-js', () => bundleDemoJS({ watch: false }));
-gulp.task('watch-demo-js', () => bundleDemoJS({ watch: true }));
+gulp.task('bundle-demo-js', () => pipeDemoBundle(bundleJS([DEMO_JS_ENTRY], { watch: false })));
+gulp.task('watch-demo-js', () => pipeDemoBundle(bundleJS([DEMO_JS_ENTRY], { watch: true })));
 
 gulp.task('copy-demo-css', () =>
   gulp.src(DEMO_STYLES_SOURCE)
@@ -41,12 +45,18 @@ gulp.task('copy-demo-css', () =>
     .pipe(gulp.dest(DEMO_STYLES_DEST))
 );
 
+gulp.task('bundle-test-js', () =>
+  bundleJS(glob.sync(TEST_FILES), { watch: false })
+    .bundle()
+    .pipe(fs.createWriteStream(TEST_BUNDLE))
+);
 
-function bundleDemoJS({ watch }) {
+
+function bundleJS(files, { watch }) {
   const browserifyArgs = { debug : true };
   const computedBrowserifyArgs = watch ? Object.assign(browserifyArgs, watchify.args) : browserifyArgs;
 
-  let bundler = browserify([TRACEUR_RUNTIME, DEMO_JS_ENTRY], computedBrowserifyArgs)
+  let bundler = browserify([TRACEUR_RUNTIME].concat(files), computedBrowserifyArgs)
     .transform(es6ify.configure(/^(?!.*node_modules)+.+\.js$/));
   // TODO: key on traceur-runner: true instead of not-in-node_modules
 
@@ -55,15 +65,15 @@ function bundleDemoJS({ watch }) {
     bundler.on('update', () => pipeDemoBundle(bundler));
   }
 
-  return pipeDemoBundle(bundler);
+  return bundler;
 }
 
 function pipeDemoBundle(bundler) {
   gutil.log('Bundling demo...');
   return bundler.bundle()
-      .pipe(source(`./${DEMO_BUNDLE_FILENAME}`))
-      .pipe(gulp.dest(DEMO_GENERATED_DEST))
-      .on('end', () => gutil.log('Bundling demo finished'));
+    .pipe(source(`./${DEMO_BUNDLE_FILENAME}`))
+    .pipe(gulp.dest(DEMO_GENERATED_DEST))
+    .on('end', () => gutil.log('Bundling demo finished'));
 }
 
 function idlToJS() {

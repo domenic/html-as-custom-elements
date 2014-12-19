@@ -9,7 +9,8 @@
     "pretest": "npm run prepublish",
     "gulp": "gulpur",
     "demo": "gulpur demo",
-    "demo-watch": "gulpur demo-watch"
+    "demo-watch": "gulpur demo-watch",
+    "bundle-tests": "gulpur bundle-test-js"
   },
   "repository": "domenic/html-as-custom-elements",
   "keywords": [
@@ -30,7 +31,7 @@
     "gulpur": "^1.0.0",
     "jquery": "^2.1.2",
     "mocha": "~1.21.4",
-    "testem": "^0.6.18",
+    "testem": "0.6.24",
     "through2": "^0.6.3",
     "traceur": "0.0.79",
     "vinyl-source-stream": "^1.0.0",
