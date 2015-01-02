@@ -1,9 +1,17 @@
 #!/bin/bash
 set -e
 
+# Run the demo-bundler in all cases, since if someone breaks that (e.g. invalid syntax causing a browserify error)
+# we'll want to know on CI, even if we can't deploy.
 npm run demo
 
+if [ "$DEPLOY_USER" == "" ]; then
+    echo "No deploy credentials present; skipping deploy"
+    exit 0
+fi
+
 if [ "$TRAVIS_BRANCH" != "master" ]; then
+  echo "Not on master branch; skipping deploy"
   exit 0
 fi
 
