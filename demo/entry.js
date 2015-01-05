@@ -19,9 +19,16 @@ function fillInPropertyTable(elementName) {
   const standardEl = section.find('.example.standard ' + elementName.replace(/^custom-/, ''))[0];
   const tbody = section.find('table.properties tbody');
 
-  const properties = Object.keys(Object.getPrototypeOf(customEl));
+  const proto = Object.getPrototypeOf(customEl);
+  const properties = Object.keys(proto);
   const rowsHtml = properties.reduce(
-    (soFar, prop) => soFar + `<tr><td>${prop}</td><td>${getPropertyValue(customEl, prop)}</td></tr>`,
+    (soFar, prop) => {
+      if (!Object.getOwnPropertyDescriptor(proto, prop).get) {
+        // Probably a method; don't output
+        return soFar;
+      }
+      return soFar + `<tr><td>${prop}</td><td>${getPropertyValue(customEl, prop)}</td></tr>`;
+    },
     ''
   );
   tbody.html(rowsHtml || '<tr><td colspan="2">(No properties)</td></tr>');
