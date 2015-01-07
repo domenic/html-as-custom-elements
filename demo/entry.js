@@ -84,7 +84,7 @@ function setSelectedLink() {
 }
 
 function setHashFromScroll() {
-  const bodyScrollTop = document.body.scrollTop;
+  const bodyScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
   let minDifference = +Infinity;
   let minSectionId;
   for (const section of sections) {
