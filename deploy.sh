@@ -5,7 +5,7 @@ set -e
 # we'll want to know on CI, even if we can't deploy.
 npm run demo
 
-if [ "$DEPLOY_USER" == "" ]; then
+if [ "$GH_TOKEN" == "" ]; then
     echo "No deploy credentials present; skipping deploy"
     exit 0
 fi
