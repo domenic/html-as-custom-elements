@@ -1,0 +1,9 @@
+/* See: https://github.com/domenic/html-as-custom-elements/issues/40 for nonstandard property usage */
+
+custom-blockquote {
+  display: block;
+  -webkit-margin-before: 1__qem;
+  -webkit-margin-after: 1em;
+  -webkit-margin-start: 40px;
+  -webkit-margin-end: 40px;
+}

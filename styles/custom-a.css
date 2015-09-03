@@ -1,0 +1,19 @@
+/* NB some of these technically apply to <custom-area> and <custom-link> as well, but for now we're doing
+  element-per-file */
+
+/* See: https://github.com/domenic/html-as-custom-elements/issues/38 for `:link, :visited, :any-link` vs.
+   `custom-a[href]` */
+
+custom-a[href] {
+  color: #0000EE;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+custom-a[href][rel~=help] {
+  cursor: help;
+}
+
+custom-a[href]:active {
+  color: #FF0000;
+}

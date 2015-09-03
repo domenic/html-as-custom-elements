@@ -1,0 +1,14 @@
+/* See: https://github.com/domenic/html-as-custom-elements/issues/40 for nonstandard property usage */
+
+/* Also, it might be possible to use attr() cleverly to implement the correct styling in the face of changes to the
+   presentational attributes? */
+
+custom-hr {
+  display: block;
+  -webkit-margin-before: 0.5em;
+  -webkit-margin-after: 0.5em;
+  -webkit-margin-start: auto;
+  -webkit-margin-end: auto;
+  border-style: inset;
+  border-width: 1px;
+}

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<title>HTML as Custom Elements Demo!</title>
+
+<link rel="stylesheet" href="styles/html.css">
+<link rel="stylesheet" href="styles/custom-a.css">
+<link rel="stylesheet" href="styles/custom-blockquote.css">
+<link rel="stylesheet" href="styles/custom-div.css">
+<link rel="stylesheet" href="styles/custom-hr.css">
+<link rel="stylesheet" href="demo.css">
+
+<header>
+  <h1>HTML as Custom Elements</h1>
+
+  <small>Please view with a Chromium-based browser, since only they implement custom elements (so far)</small>
+
+  <a href="https://github.com/domenic/html-as-custom-elements" class="fork-me-on-github">
+    <img src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
+</header>
+
+<nav>
+  <a href="#custom-a">&lt;custom-a&gt;</a>
+  <a href="#custom-blockquote">&lt;custom-blockquote&gt;</a>
+  <a href="#custom-div">&lt;custom-div&gt;</a>
+  <a href="#custom-hr">&lt;custom-hr&gt;</a>
+  <a href="#custom-span">&lt;custom-span&gt;</a>
+</nav>
+
+<section id="custom-a">
+  <h1>&lt;custom-a&gt;</h1>
+
+  <aside class="example custom">
+    <h2>&lt;custom-a&gt; example</h2>
+    <p>My favorite site on the internet is <custom-a href="http://example.com/">example.com</custom-a>.</p>
+  </aside>
+
+  <aside class="example standard">
+    <h2>&lt;a&gt; example</h2>
+    <p>My favorite site on the internet is <a href="http://example.com/">example.com</a>.</p>
+  </aside>
+
+  <table class="properties">
+    <caption>Properties</caption>
+    <thead>
+      <tr>
+        <th>Property</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <section>
+    <h1>Known Issues</h1>
+    <ul>
+      <li> <code>searchParams</code> property does not work due to a bug in our WebIDL bindings
+      <li> <code>ping</code> and <code>relList</code> properties are impossible to emulate because <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=27114">it is impossible to create instances of <code>DOMTokenList</code> and <code>DOMSettableTokenList</code></a>
+      <li> <code>target=""</code>, <code>ping=""</code>, and <code>download=""</code> attributes have not yet been implemented (if they can be)
+      <li> Should be focusable (this is a major gap in custom elements functionality)
+      <li> Does not match <code>:link</code>, <code>:visited</code>, or <code>:any-link</code> CSS pseudoclasses, since the spec hard-codes <code>a</code> as the only tag name allowed to do so (<a href="https://github.com/domenic/html-as-custom-elements/issues/38">#38</a>)
+      <li> The default styling is incorrectly placed in the CSS cascade, and so e.g. styling <code>*</code> does not overwrite it (<a href="https://github.com/domenic/html-as-custom-elements/issues/27">#27</a>)
+      <li> Does not cause the status bar to show the URL when hovering over it (<a href="https://github.com/domenic/html-as-custom-elements/issues/39">#39</a>)
+      <li> Not reflected correctly to accessibility technology (see <a href="https://github.com/domenic/html-as-custom-elements/blob/master/docs/accessibility.md">"Gap Analysis: Accessibility"</a>)
+    </ul>
+  </section>
+</section>
+
+<section id="custom-blockquote">
+  <h1>&lt;custom-blockquote&gt;</h1>
+
+  <aside class="example custom">
+    <h2>&lt;custom-blockquote&gt; example</h2>
+    <custom-blockquote cite="http://quotes.example.org/s/sonnet130.html">
+      My mistress' eyes are nothing like the sun,<br>
+      Coral is far more red, than her lips red,<br>
+      ...
+    </custom-blockquote>
+  </aside>
+
+  <aside class="example standard">
+    <h2>&lt;blockquote&gt; example</h2>
+    <blockquote cite="http://quotes.example.org/s/sonnet130.html">
+      My mistress' eyes are nothing like the sun,<br>
+      Coral is far more red, than her lips red,<br>
+      ...
+    </blockquote>
+  </aside>
+
+  <table class="properties">
+    <caption>Properties</caption>
+    <thead>
+      <tr>
+        <th>Property</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <section>
+    <h1>Known Issues</h1>
+    <ul>
+      <li> <code>HTMLQuoteElement</code> is shared between <code>&lt;blockquote&gt;</code> and <code>&lt;q&gt;</code>, but you cannot register a single custom element prototype with multiple tag names, so <code>CustomHTMLQuoteElement</code> cannot be used for <code>&lt;custom-q&gt;</code> (<a href="https://github.com/domenic/html-as-custom-elements/issues/19">#19</a>)
+      <li> The Blink user agent stylesheet for <code>&lt;blockquote&gt;</code> uses nonstandard properties <code>-webkit-margin-before</code>, <code>-webkit-margin-after</code>, <code>-webkit-margin-start</code>, and <code>-webkit-margin-end</code>, as well as the nonstandard unit <code>__qem</code> (<a href="https://github.com/domenic/html-as-custom-elements/issues/40">#40</a>)
+      <li> The default styling is incorrectly placed in the CSS cascade, and so e.g. styling <code>*</code> does not overwrite it (<a href="https://github.com/domenic/html-as-custom-elements/issues/27">#27</a>)
+    </ul>
+  </section>
+</section>
+
+<section id="custom-div">
+  <h1>&lt;custom-div&gt;</h1>
+
+  <aside class="example custom">
+    <h2>&lt;custom-div&gt; example</h2>
+    <custom-div>Block-level elements are pretty cool, right?</custom-div>
+  </aside>
+
+  <aside class="example standard">
+    <h2>&lt;div&gt; example</h2>
+    <div>Block-level elements are pretty cool, right?</div>
+  </aside>
+
+  <table class="properties">
+    <caption>Properties</caption>
+    <thead>
+      <tr>
+        <th>Property</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <section>
+    <h1>Known Issues</h1>
+    <ul>
+      <li> The default styling is incorrectly placed in the CSS cascade, and so e.g. styling <code>*</code> does not overwrite it (<a href="https://github.com/domenic/html-as-custom-elements/issues/27">#27</a>)
+    </ul>
+  </section>
+</section>
+
+<section id="custom-hr">
+  <h1>&lt;custom-hr&gt;</h1>
+
+  <aside class="example custom">
+    <h2>&lt;custom-hr&gt; example</h2>
+    <p>Did you know?</p>
+    <custom-hr></custom-hr>
+    <p>"hr" stands for "horizontal rule."</p>
+  </aside>
+
+  <aside class="example standard">
+    <h2>&lt;hr&gt; example</h2>
+    <p>Did you know?</p>
+    <hr>
+    <p>"hr" stands for "horizontal rule."</p>
+  </aside>
+
+  <table class="properties">
+    <caption>Properties</caption>
+    <thead>
+      <tr>
+        <th>Property</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <section>
+    <h1>Known Issues</h1>
+    <ul>
+      <li> Presentational attributes do not work yet
+      <li> The Blink user agent stylesheet for <code>&lt;hr&gt;</code> uses nonstandard properties <code>-webkit-margin-before</code>, <code>-webkit-margin-after</code>, <code>-webkit-margin-start</code>, and <code>-webkit-margin-end</code> (<a href="https://github.com/domenic/html-as-custom-elements/issues/40">#40</a>)
+      <li> The default styling is incorrectly placed in the CSS cascade, and so e.g. styling <code>*</code> does not overwrite it (<a href="https://github.com/domenic/html-as-custom-elements/issues/27">#27</a>)
+      <li> Not reflected correctly to accessibility technology (see <a href="https://github.com/domenic/html-as-custom-elements/blob/master/docs/accessibility.md">"Gap Analysis: Accessibility"</a>)
+    </ul>
+  </section>
+</section>
+
+<section id="custom-span">
+  <h1>&lt;custom-span&gt;</h1>
+
+  <aside class="example custom">
+    <h2>&lt;custom-span&gt; example</h2>
+    <p>You might think spans are simple, but <custom-span>they still have issues</custom-span></p>
+  </aside>
+
+  <aside class="example standard">
+    <h2>&lt;span&gt; example</h2>
+    <p>You might think spans are simple, but <span>they still have issues</span></p>
+  </aside>
+
+  <table class="properties">
+    <caption>Properties</caption>
+    <thead>
+      <tr>
+        <th>Property</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <section>
+    <h1>Known Issues</h1>
+    <ul>
+      <li> Not reflected correctly to accessibility technology (see <a href="https://github.com/domenic/html-as-custom-elements/blob/master/docs/accessibility.md">"Gap Analysis: Accessibility"</a>)
+    </ul>
+  </section>
+</section>
+
+<script async defer src="generated/bundle.js"></script>
