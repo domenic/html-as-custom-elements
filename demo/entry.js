@@ -7,7 +7,7 @@ for (const section of sections) {
 }
 
 $(window).on('hashchange', setSelectedLink);
-$(window).on('scroll', setHashFromScroll)
+$(window).on('scroll', setHashFromScroll);
 if (!window.location.hash) {
   setHashFromScroll();
 }
@@ -95,5 +95,6 @@ function setHashFromScroll() {
     }
   }
 
-  window.location.hash = minSectionId;
+  // Don't want to scroll to the section directly since we are already inside a user scroll handler.
+  history.replaceState({}, '', '#' + minSectionId);
 }
